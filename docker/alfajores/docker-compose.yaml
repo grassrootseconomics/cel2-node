@@ -25,6 +25,8 @@ services:
       --http.corsdomain '*'
       --http.vhosts '*'
       --ws.origins '*'
+      --graphql.corsdomain '*'
+      --graphql.vhosts '*'
     volumes:
       - ./data:/root/.celo
     ports:
