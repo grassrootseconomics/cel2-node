@@ -22,6 +22,9 @@ services:
       --ws.api eth,net,web3,txpool
       --graphql
       --datadir /root/.celo
+      --http.corsdomain '*'
+      --http.vhosts '*'
+      --ws.origins '*'
     volumes:
       - ./data:/root/.celo
     ports:
