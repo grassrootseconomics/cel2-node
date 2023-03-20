@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  caddy:
+    restart: unless-stopped
+    container_name: caddy
+    image: caddy:2-alpine
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/data
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - celo
+networks:
+  celo:
+    external: true
