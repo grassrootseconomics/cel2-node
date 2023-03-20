@@ -1,12 +1,10 @@
-rpc.YOURPUBLICDOMAIN {
+celo.YOURDOMAIN {
     reverse_proxy celochain:8545
 }
 
-ws.YOURPUBLICDOMAIN {
+ws.celo.YOURDOMAIN {
     @websockets {
         header Connection *Upgrade*
         header Upgrade    websocket
     }
-
-    reverse_proxy @websockets celochain:8546
-}   
+}

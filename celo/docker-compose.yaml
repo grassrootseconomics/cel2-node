@@ -1,21 +1,25 @@
 version: '3.9'
 services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    command: --cleanup --label-enable -i 21600
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
   celochain:
     init: true
-    user: root  
+    user: root
     restart: unless-stopped
     container_name: celochain
     image: us.gcr.io/celo-org/geth:mainnet
     command:
       --verbosity 3
       --syncmode full
-      --gcmode archive
       --maxpeers 75
-      --txlookuplimit=0
       --cache.preimages
       --http
       --http.addr 0.0.0.0
-      --http.api eth,net,web3,txpool
+      --http.api eth,net,web3,txpool,debug
       --ws
       --ws.addr 0.0.0.0
       --ws.api eth,net,web3,txpool
@@ -28,14 +32,15 @@ services:
       --graphql.vhosts '*'
     volumes:
       - ./data:/root/.celo
+    labels:
+      - com.centurylinklabs.watchtower.enable=true      
     ports:
-      - '8545:8545'
-      - '8546:8546'
+      - '127.0.0.1:8545:8545'
+      - '127.0.0.1:8546:8546'
       - '30303:30303'
       - '30303:30303/udp'
     networks:
-      - celo
+    - celo
 networks:
   celo:
-    driver: bridge
-    
+    external: true
