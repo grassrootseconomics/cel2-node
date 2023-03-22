@@ -7,4 +7,6 @@ ws.celo.YOURDOMAIN {
         header Connection *Upgrade*
         header Upgrade    websocket
     }
+
+    reverse_proxy @websockets celochain:8546
 }
