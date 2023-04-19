@@ -14,12 +14,12 @@ Allow:
 
 ### Snapshot Download links
 
-- Mainnet: `https://storage.googleapis.com/celo-chain-backup/mainnet/chaindata-latest.tar.lz4`
-- Alfajores Tesnet: `https://storage.googleapis.com/celo-chain-backup/alfajores/chaindata-latest.tar.lz4`
+- Mainnet: `https://storage.googleapis.com/celo-chain-backup/mainnet/chaindata-latest.tar.zst`
+- Alfajores Tesnet: `https://storage.googleapis.com/celo-chain-backup/alfajores/chaindata-latest.tar.zst`
 
 ### Usage
 
-1. Extract snapshot with  `lz4 -dc chaindata*.tar.lz4 | tar -xvf -`
+1. Extract snapshot with  `tar --use-compress-program=unzstd -xvf chaindata-latest.tar.zst`
 2. Bring up the `celo` container temporarily with `docker-compose up` and then exit.
 3. Replace the chaindata (`./data/celo/chaindata`) folder with the snapshot `chaindata`.
 4. Create a `celo` overlay network with `docker network create celo`
