@@ -41,6 +41,7 @@ services:
       - '30303:30303/udp'
     networks:
     - celo
+    stop_grace_period: 300s
 networks:
   celo:
     external: true
