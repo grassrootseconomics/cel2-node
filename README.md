@@ -65,5 +65,5 @@ docker-compose up -d
 
 ## License
 
-[AGPL-3.0](LICENSE).
+[MIT](LICENSE).
 
