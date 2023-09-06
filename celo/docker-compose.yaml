@@ -42,6 +42,7 @@ services:
     networks:
     - celo
     stop_grace_period: 300s
+    stop_signal: SIGINT
 networks:
   celo:
     external: true
