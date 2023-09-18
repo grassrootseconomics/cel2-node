@@ -5,6 +5,12 @@
 - Atleast 4 GB RAM, 6 GB Recommended
 - Atleast 256 GB SSD Storage (future-proofed for atleast 1 year)
 
+## Snapshot Download Links
+
+- Mainnet: `https://storage.googleapis.com/celo-chain-backup/mainnet/chaindata-latest.tar.zst`
+- Alfajores Tesnet: `https://storage.googleapis.com/celo-chain-backup/alfajores/chaindata-latest.tar.zst`
+- Baklava Testnet: `https://storage.googleapis.com/celo-chain-backup/baklava/chaindata-latest.tar.zst`
+
 ## Firewall
 
 Allow:
