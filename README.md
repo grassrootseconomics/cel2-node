@@ -2,7 +2,7 @@
 
 # System Requirements
 
-- Atleast 8 GB RAM, 10 GB Recommended
+- Atleast 12 GB RAM, 16 GB Recommended
 - Atleast 256 GB SSD Storage (future-proofed for atleast 1 year)
 
 ## Snapshot Download Links
