@@ -3,11 +3,11 @@
 # System Requirements
 
 - Atleast 12 GB RAM, 16 GB Recommended
-- Atleast 256 GB SSD Storage (future-proofed for atleast 1 year)
+- Atleast 512 GB SSD Storage (future-proofed for atleast 1 year, before CEL2)
 
 ## Snapshot Download Links
 
-- Mainnet: `https://storage.googleapis.com/celo-chain-backup/mainnet/chaindata-latest.tar.zst`
+- Mainnet: `https://storage.googleapis.com/celo-chain-backup/mainnet/chaindata-latest.tar.zst` (Contains a missing block, may require manual rewinding)
 - Alfajores Tesnet: `https://storage.googleapis.com/celo-chain-backup/alfajores/chaindata-latest.tar.zst`
 - Baklava Testnet: `https://storage.googleapis.com/celo-chain-backup/baklava/chaindata-latest.tar.zst`
 
@@ -34,8 +34,6 @@ apt install curl zstd aria2 chrony git
 
 # Install Docker
 curl -fsSL https://get.docker.com | bash
-# To expose Docker Compose to PATH, add the below line to your .basrc or .profile
-# export PATH="/usr/libexec/docker/cli-plugins:$PATH"
 
 # Download using the snapshot below
 aria2c -x 16 -s 16 $DOWNLOAD_LINK
@@ -46,7 +44,7 @@ git clone https://github.com/grassrootseconomics/celo-node.git
 # Prepare directories
 cd celo
 docker network create celo
-docker-compose up
+docker compose up
 # After a few seconds, cancel the operation with CTRL+C
 
 # Extract and restore snapshot
@@ -56,7 +54,7 @@ sudo rm -rf data/celo/chaindata
 sudo mv chaindata data/celo
 
 # Run the node
-docker-compose up -d
+docker compose up -d
 # It may take a few minutes to sync up
 
 # Check if the sync has completed
@@ -65,7 +63,7 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}
 # Update your domain in caddy/Caddyfile
 cd ..
 cd caddy
-docker-compose up -d
+docker compose up -d
 # Your node should now be available at the endpoints configured
 ```
 
