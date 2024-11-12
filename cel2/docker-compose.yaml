@@ -55,6 +55,7 @@ services:
     container_name: cel2-op-node
     image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-node:celo9
     command:
+      op-node
       --l1.trustrpc
       --l1 https://ethereum-holesky-rpc.publicnode.com
       --l1.beacon https://ethereum-holesky-beacon-api.publicnode.com 
