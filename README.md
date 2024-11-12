@@ -40,8 +40,10 @@ git clone https://github.com/grassrootseconomics/cel2-node.git
 cd cel2
 docker network create cel2
 
-# Init chaindata
-docker run -it --name cel2-op-geth-init -v ./cel2-chaindata:/datadir us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-geth:celo8 --datadir=/datadir init /datadir/genesis.json
+# Download chaindatasnapshot
+aria2c -x 16 -s 16 https://storage.googleapis.com/cel2-rollup-files/alfajores/alfajores-migrated-datadir.tar.zst
+mkdir -p cel2-chaindata/
+tar -xvf alfajores-migrated-datadir.tar.zst -C cel2-chaindata/
 
 # Start OP Geth
 docker compose up cel2-op-geth
