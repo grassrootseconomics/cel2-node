@@ -1,12 +1,12 @@
-celo.YOURDOMAIN {
-    reverse_proxy celochain:8545
+cel2.YOURDOMAIN {
+    reverse_proxy cel2-op-geth:8545
 }
 
-ws.celo.YOURDOMAIN {
+ws.cel2.YOURDOMAIN {
     @websockets {
         header Connection *Upgrade*
         header Upgrade    websocket
     }
 
-    reverse_proxy @websockets celochain:8546
+    reverse_proxy @websockets cel2-op-geth:8546
 }

@@ -1,15 +1,11 @@
-# celo-node
+# cel2-node
 
-# System Requirements
+> For CELO Pre-fork (< January 2025), refer to the `celo-old` branch
+
+# Alfajores System Requirements
 
 - Atleast 12 GB RAM, 16 GB Recommended
-- Atleast 512 GB SSD Storage (future-proofed for atleast 1 year, before CEL2)
-
-## Snapshot Download Links
-
-- Mainnet: `https://storage.googleapis.com/celo-chain-backup/mainnet/chaindata-latest.tar.zst` (Contains a missing block, may require manual rewinding)
-- Alfajores Tesnet: `https://storage.googleapis.com/celo-chain-backup/alfajores/chaindata-latest.tar.zst`
-- Baklava Testnet: `https://storage.googleapis.com/celo-chain-backup/baklava/chaindata-latest.tar.zst`
+- Atleast 512 GB SSD Storage (As of November 2024)
 
 ## Firewall
 
@@ -17,12 +13,14 @@ Allow:
 
 - 30303/udp
 - 30303/tcp
+- 9222/udp
+- 9222/tcp
 - 443/tcp
 - 80/tcp
- 
+
 ## Setup
 
-* This step assumes the setup is done on an Ubuntu/Debian based distro
+- This step assumes the setup is done on an Ubuntu/Debian based distro
 
 After setting up the server:
 
@@ -39,23 +37,21 @@ curl -fsSL https://get.docker.com | bash
 aria2c -x 16 -s 16 $DOWNLOAD_LINK
 
 # Clone this repo
-git clone https://github.com/grassrootseconomics/celo-node.git
+git clone https://github.com/grassrootseconomics/cel2-node.git
 
 # Prepare directories
-cd celo
-docker network create celo
-docker compose up
-# After a few seconds, cancel the operation with CTRL+C
+cd cel2
+docker network create cel2
 
-# Extract and restore snapshot
-tar --use-compress-program=unzstd -xvf chaindata-latest.tar.zst
-# The data folder was created in the previous step when brining up the container
-sudo rm -rf data/celo/chaindata
-sudo mv chaindata data/celo
+# Init chaindata
+docker run -it --name cel2-op-geth-init -v ./cel2-chaindata:/datadir us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-geth:celo8 --datadir=/datadir init /datadir/genesis.json
 
-# Run the node
-docker compose up -d
-# It may take a few minutes to sync up
+# Start OP Geth
+docker compose up cel2-op-geth
+
+# Start OP Node
+cp cel2-chaindata/jwt.hex cel2-rollupdata/jwt.hex
+docker compose up cel2-op-node
 
 # Check if the sync has completed
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H "Content-Type: application/json" http://localhost:8545
@@ -70,4 +66,3 @@ docker compose up -d
 ## License
 
 [MIT](LICENSE).
-
