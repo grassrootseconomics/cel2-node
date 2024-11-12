@@ -28,13 +28,10 @@ After setting up the server:
 apt update && apt upgrade --yes
 
 # Install required pkg deps
-apt install curl zstd aria2 chrony git
+apt install curl chrony git
 
 # Install Docker
 curl -fsSL https://get.docker.com | bash
-
-# Download using the snapshot below
-aria2c -x 16 -s 16 $DOWNLOAD_LINK
 
 # Clone this repo
 git clone https://github.com/grassrootseconomics/cel2-node.git
