@@ -13,6 +13,8 @@ services:
     container_name: cel2-op-geth
     image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-geth:celo8
     command:
+      --rollup.sequencerhttp https://sequencer.alfajores.celo-testnet.org
+      --rollup.disabletxpoolgossip
       --gcmode full
       --networkid 44787
       --snapshot
