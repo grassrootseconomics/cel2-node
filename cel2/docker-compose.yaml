@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   op-geth:
     restart: unless-stopped
