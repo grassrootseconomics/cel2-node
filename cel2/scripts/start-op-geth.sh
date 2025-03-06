@@ -8,11 +8,6 @@ if [ ! -f "/shared/jwt.txt" ]; then
   dd bs=1 count=32 if=/dev/urandom of=/dev/stdout | xxd -p -c 32 > /shared/jwt.txt
 fi
 
-# Check if either OP_GETH__HISTORICAL_RPC or HISTORICAL_RPC_DATADIR_PATH is set and if so set the historical rpc option.
-if [ -n "$OP_GETH__HISTORICAL_RPC" ] || [ -n "$HISTORICAL_RPC_DATADIR_PATH" ] ; then
-  export EXTENDED_ARG="${EXTENDED_ARG:-} --rollup.historicalrpc=${OP_GETH__HISTORICAL_RPC:-http://historical-rpc-node:8545}"
-fi
-
 if [ -n "$IPC_PATH" ]; then
   export EXTENDED_ARG="${EXTENDED_ARG:-} --ipcpath=$IPC_PATH"
 fi
