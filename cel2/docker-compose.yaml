@@ -43,6 +43,10 @@ services:
     networks:
     - cel2
 
+volumes:
+  shared:
+    driver: local
+
 networks:
   cel2:
     external: true
