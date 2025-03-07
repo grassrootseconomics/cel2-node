@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   caddy:
     restart: unless-stopped
@@ -11,7 +10,7 @@ services:
       - '80:80'
       - '443:443'
     networks:
-      - celo
+      - cel2
 networks:
-  celo:
+  cel2:
     external: true
