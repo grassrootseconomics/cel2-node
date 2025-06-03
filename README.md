@@ -2,17 +2,18 @@
 
 > For CELO Pre-fork (< January 2025), refer to the `celo-old` branch
 
-# CEL2 Mainnet System Requirements
+## CEL2 Mainnet System Requirements
 
 - Atleast 16 GB RAM
 - Atleast 1TB SSD Storage (As of June 2025)
 
 ## Features
 
+- Snap sync by default
 - ENV only configuration for easier management
-- Stats server always enabled
-- Optional vector collector for pull-based metrics collection
-- Reconfigured to retain more peers to prioritize liveness
+- Stats server is always enabled
+- Optional vector collector for pull-based metrics aggregation
+- Reconfigured OP stack to retain more peers to prioritize liveness
 
 ## Firewall
 
@@ -48,12 +49,14 @@ cd cel2
 docker network create cel2
 
 # Bootstrap genesis data
+# For Alfajores, set $CHAIN=alfajores
 ./bootstrap.sh
 
 # Update all .env files with your own settings
+# For Alfajores, configs are commented out. Also update docker-compose.yaml
 vi op-geth.env
 vi op-node.env
-vi eigeda-proxy.env
+vi eigenda-proxy.env
 
 # Start OP Geth
 docker compose up -d
