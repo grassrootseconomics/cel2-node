@@ -69,6 +69,9 @@ cd ..
 cd caddy
 docker compose up -d
 # Your node should now be available at the endpoints configured
+
+# OTEL
+# See metrics folder
 ```
 
 ## License
