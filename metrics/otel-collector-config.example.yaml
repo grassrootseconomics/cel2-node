@@ -1,0 +1,38 @@
+receivers:
+  hostmetrics:
+    scrapers:
+      cpu:
+      disk:
+      load:
+      memory:
+      network:
+      paging:
+
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: op-geth
+          metrics_path: '/debug/metrics/prometheus'
+          scrape_interval: 5s
+          static_configs:
+            - targets: ['op-geth:9090']
+        - job_name: op-node
+          metrics_path: '/metrics'
+          scrape_interval: 5s
+          static_configs:
+            - targets: ['op-node:9091']
+        - job_name: eigenda-proxy
+          metrics_path: '/metrics'
+          scrape_interval: 5s
+          static_configs:
+            - targets: ['eigenda-proxy:9092']            
+
+# Replace with your own
+exporters:
+
+service:
+  pipelines:
+    metrics:
+      receivers: [prometheus]
+      # Fill in this part
+      exporters: []

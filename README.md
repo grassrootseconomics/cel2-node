@@ -2,10 +2,18 @@
 
 > For CELO Pre-fork (< January 2025), refer to the `celo-old` branch
 
-# Alfajores System Requirements
+## CEL2 Mainnet System Requirements
 
-- Atleast 12 GB RAM, 16 GB Recommended
-- Atleast 512 GB SSD Storage (As of November 2024)
+- Atleast 16 GB RAM
+- Atleast 1TB SSD Storage (As of June 2025)
+
+## Features
+
+- Snap sync by default
+- ENV only configuration for easier management
+- Metrics server is always enabled (InfluxDB push disabled)
+- Optional OTEL collector for pull-based metrics aggregation (Lighter than InfluxDB stack)
+- Reconfigured OP stack to retain more peers to prioritize liveness
 
 ## Firewall
 
@@ -28,7 +36,7 @@ After setting up the server:
 apt update && apt upgrade --yes
 
 # Install required pkg deps
-apt install curl chrony git
+apt install curl chrony git xxd
 
 # Install Docker
 curl -fsSL https://get.docker.com | bash
@@ -40,17 +48,18 @@ git clone https://github.com/grassrootseconomics/cel2-node.git
 cd cel2
 docker network create cel2
 
-# Download chaindatasnapshot
-aria2c -x 16 -s 16 https://storage.googleapis.com/cel2-rollup-files/alfajores/alfajores-migrated-datadir.tar.zst
-mkdir -p cel2-chaindata/
-tar -xvf alfajores-migrated-datadir.tar.zst -C cel2-chaindata/
+# Bootstrap genesis data
+# For Alfajores, set $CHAIN=alfajores
+./bootstrap.sh
 
-# Start OP Geth
-docker compose up cel2-op-geth
+# Update all .env files with your own settings
+# For Alfajores, configs are commented out. Also update docker-compose.yaml
+vi op-geth.env
+vi op-node.env
+vi eigenda-proxy.env
 
-# Start OP Node
-cp cel2-chaindata/jwt.hex cel2-rollupdata/jwt.hex
-docker compose up cel2-op-node
+# Start OP stack
+docker compose up -d
 
 # Check if the sync has completed
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H "Content-Type: application/json" http://localhost:8545
@@ -60,8 +69,11 @@ cd ..
 cd caddy
 docker compose up -d
 # Your node should now be available at the endpoints configured
+
+# OTEL
+# See metrics folder
 ```
 
 ## License
 
-[MIT](LICENSE).
+[LGPL](LICENSE).

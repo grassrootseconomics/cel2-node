@@ -1,0 +1,55 @@
+services:
+  op-geth:
+    image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-geth:celo-v2.0.4
+    restart: unless-stopped
+    stop_grace_period: 5m
+    env_file: ./op-geth.env
+    volumes:
+      # - ./chains/alfajores:/chainconfig
+      - ./chains/mainnet:/chainconfig
+      - ./data:/geth
+      - ./shared:/shared
+    ports:
+      - "127.0.0.1:8545:8545"
+      - "127.0.0.1:8546:8546"
+      - "127.0.0.1:8551:8551"
+      - "127.0.0.1:9090:9090"
+      - "30303:30303"
+      - "30303:30303/udp"
+    networks:
+      - cel2
+  op-node:
+    image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-node:celo-v2.0.0
+    restart: unless-stopped
+    stop_grace_period: 5m
+    env_file: ./op-node.env
+    volumes:
+      # - ./chains/alfajores:/chainconfig
+      - ./chains/mainnet:/chainconfig
+      - ./shared:/shared
+    ports:
+      - "127.0.0.1:9545:9545"
+      - "127.0.0.1:9091:9091"
+      - "9222:9222"
+      - "9222:9222/udp"
+    networks:
+      - cel2
+    depends_on:
+      op-geth:
+        condition: service_started
+  eigenda-proxy:
+    image: ghcr.io/layr-labs/eigenda-proxy:v1.6.5
+    restart: unless-stopped
+    stop_grace_period: 5m
+    env_file: ./eigenda-proxy.env
+    volumes:
+      - ./eigenda-data:/data
+    ports:
+      - "127.0.0.1:4242:4242"
+      - "127.0.0.1:9092:9092"
+    networks:
+      - cel2
+
+networks:
+  cel2:
+    external: true

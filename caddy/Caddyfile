@@ -1,5 +1,5 @@
 cel2.YOURDOMAIN {
-    reverse_proxy cel2-op-geth:8545
+    reverse_proxy op-geth:8545
 }
 
 ws.cel2.YOURDOMAIN {
@@ -8,5 +8,5 @@ ws.cel2.YOURDOMAIN {
         header Upgrade    websocket
     }
 
-    reverse_proxy @websockets cel2-op-geth:8546
+    reverse_proxy @websockets op-geth:8546
 }

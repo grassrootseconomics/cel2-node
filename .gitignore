@@ -1,0 +1,4 @@
+shared/
+data/
+eigenda-data/
+metrics/otel-collector-config.yaml
