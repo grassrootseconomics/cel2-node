@@ -2,10 +2,17 @@
 
 > For CELO Pre-fork (< January 2025), refer to the `celo-old` branch
 
-# Alfajores System Requirements
+# CEL2 Mainnet System Requirements
 
-- Atleast 12 GB RAM, 16 GB Recommended
-- Atleast 512 GB SSD Storage (As of November 2024)
+- Atleast 16 GB RAM
+- Atleast 1TB SSD Storage (As of June 2025)
+
+## Features
+
+- ENV only configuration for easier management
+- Stats server always enabled
+- Optional vector collector for pull-based metrics collection
+- Reconfigured to retain more peers to prioritize liveness
 
 ## Firewall
 
@@ -28,7 +35,7 @@ After setting up the server:
 apt update && apt upgrade --yes
 
 # Install required pkg deps
-apt install curl chrony git
+apt install curl chrony git xxd
 
 # Install Docker
 curl -fsSL https://get.docker.com | bash
@@ -40,17 +47,16 @@ git clone https://github.com/grassrootseconomics/cel2-node.git
 cd cel2
 docker network create cel2
 
-# Download chaindatasnapshot
-aria2c -x 16 -s 16 https://storage.googleapis.com/cel2-rollup-files/alfajores/alfajores-migrated-datadir.tar.zst
-mkdir -p cel2-chaindata/
-tar -xvf alfajores-migrated-datadir.tar.zst -C cel2-chaindata/
+# Bootstrap genesis data
+./bootstrap.sh
+
+# Update all .env files with your own settings
+vi op-geth.env
+vi op-node.env
+vi eigeda-proxy.env
 
 # Start OP Geth
-docker compose up cel2-op-geth
-
-# Start OP Node
-cp cel2-chaindata/jwt.hex cel2-rollupdata/jwt.hex
-docker compose up cel2-op-node
+docker compose up -d
 
 # Check if the sync has completed
 curl -X POST --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' -H "Content-Type: application/json" http://localhost:8545
@@ -64,4 +70,4 @@ docker compose up -d
 
 ## License
 
-[MIT](LICENSE).
+[LGPL](LICENSE).
