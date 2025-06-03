@@ -1,7 +1,6 @@
 services:
   otel-collector:
-    image: otel/opentelemetry-collector-contrib
-    command: [--config=/etc/otel-collector-config.yaml]
+    image: otel/opentelemetry-collector-contrib:latest
     restart: unless-stopped
     volumes:
       - ./otel-collector-config.yaml:/etc/otelcol-contrib/config.yaml
