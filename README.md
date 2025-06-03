@@ -11,8 +11,8 @@
 
 - Snap sync by default
 - ENV only configuration for easier management
-- Stats server is always enabled
-- Optional vector collector for pull-based metrics aggregation
+- Metrics server is always enabled (InfluxDB push disabled)
+- Optional OTEL collector for pull-based metrics aggregation (Lighter than InfluxDB stack)
 - Reconfigured OP stack to retain more peers to prioritize liveness
 
 ## Firewall
@@ -58,7 +58,7 @@ vi op-geth.env
 vi op-node.env
 vi eigenda-proxy.env
 
-# Start OP Geth
+# Start OP stack
 docker compose up -d
 
 # Check if the sync has completed
