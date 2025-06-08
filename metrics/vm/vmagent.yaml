@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 10s
+  external_labels:
+    node: celo-r1
+
+scrape_configs:
+  - job_name: op-geth
+    static_configs:
+      - targets:
+          - op-geth:9090/debug/metrics/prometheus
+  - job_name: op-node
+    static_configs:
+      - targets:
+          - op-node:9091/metrics
+  - job_name: eigenda-proxy
+    static_configs:
+      - targets:
+          - eigenda-proxy:9092/metrics
