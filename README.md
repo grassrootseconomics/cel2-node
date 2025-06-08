@@ -12,7 +12,7 @@
 - Snap sync by default
 - ENV only configuration for easier management
 - Metrics server is always enabled (InfluxDB push disabled)
-- Optional OTEL collector for pull-based metrics aggregation (Lighter than InfluxDB stack)
+- Optional VM or OTEL collector for pull-based metrics aggregation
 - Reconfigured OP stack to retain more peers to prioritize liveness
 
 ## Firewall
