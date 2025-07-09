@@ -30,6 +30,10 @@ Allow:
 
 - This step assumes the setup is done on an Ubuntu/Debian based distro
 
+### Alfajores
+
+Commented out values are for Alfajores. By default, all configs are for mainnet.
+
 After setting up the server:
 
 ```bash
@@ -56,6 +60,7 @@ docker network create cel2
 # For Alfajores, configs are commented out. Also update docker-compose.yaml
 vi op-geth.env
 vi op-node.env
+# Change the private key by generating a new one
 vi eigenda-proxy.env
 
 # Start OP stack
@@ -70,7 +75,7 @@ cd caddy
 docker compose up -d
 # Your node should now be available at the endpoints configured
 
-# OTEL
+# OTEL/VM
 # See metrics folder
 ```
 
