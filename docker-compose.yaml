@@ -1,6 +1,6 @@
 services:
   op-geth:
-    image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-geth:celo-v2.1.0
+    image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-geth:celo-v2.1.2
     restart: unless-stopped
     stop_grace_period: 5m
     env_file: ./op-geth.env
