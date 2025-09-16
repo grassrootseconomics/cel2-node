@@ -30,9 +30,9 @@ Allow:
 
 - This step assumes the setup is done on an Ubuntu/Debian based distro
 
-### Alfajores
+### Celo Sepolia
 
-Commented out values are for Alfajores. By default, all configs are for mainnet.
+Commented out values are for Celo Sepolia. By default, all configs are for mainnet.
 
 After setting up the server:
 
@@ -53,11 +53,11 @@ cd cel2
 docker network create cel2
 
 # Bootstrap genesis data
-# For Alfajores, set $CHAIN=alfajores
+# For Celo Sepolia, set $CHAIN=celo-sepolia
 ./bootstrap.sh
 
 # Update all .env files with your own settings
-# For Alfajores, configs are commented out. Also update docker-compose.yaml
+# For Celo Sepolia, configs are commented out. Also update docker-compose.yaml
 vi op-geth.env
 vi op-node.env
 # Change the private key by generating a new one
