@@ -1,0 +1,12 @@
+services:
+  op-succinct-challenger:
+    image: us-west1-docker.pkg.dev/devopsre/celo-blockchain-public/op-succinct-challenger:v1
+    restart: unless-stopped
+    stop_grace_period: 5m
+    env_file: ./op-succinct-challenger.env
+    networks:
+      - cel2
+
+networks:
+  cel2:
+    external: true
